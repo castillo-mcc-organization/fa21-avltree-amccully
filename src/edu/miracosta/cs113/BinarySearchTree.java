@@ -1,8 +1,16 @@
 package edu.miracosta.cs113;
 
+/**
+ * BinarySearchTree.java : Extends from BinaryTree to allow for data to be stored more sensibly
+ * All values to the right of the node must be greater, all values to the left of the node must be less
+ *
+ * @author Aaron McCully
+ * @version 1.0
+ *
+ * @param <E> The type of data stored in the tree nodes
+ */
 public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> implements SearchTree<E> {
-
-    // iMpOrTaNt nOtE: UsE TeXtBoOk fOr jAvAdOcS
+    // data fields (protected)
     protected boolean addReturn;
     protected E deleteReturn;
 
@@ -12,6 +20,15 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
         return deleteReturn;
     }
 
+    /**
+     * Recursive delete method.
+     * post: The item is not in the tree;
+     * deleteReturn is equal to the deleted item as it was stored in the tree or null
+     * if the item was not found.
+     * @param localRoot The root of the current subtree
+     * @param item The item to be deleted
+     * @return The modified local root that does not contain the item
+     */
     private Node<E> delete(Node<E> localRoot, E item) {
         if (localRoot == null) {
             // item is not in the tree.
@@ -56,6 +73,13 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
         }
     }
 
+    /**
+     * Find the node that is the inorder predecessor and replace it
+     * with its left child (if any).
+     * post: The inorder predecessor is removed from the tree.
+     * @param parent The parent of possible inorder predecessor (ip)
+     * @return The data in the ip
+     */
     private E findLargestChild(Node<E> parent) {
         // If the right child has no right child, it is the inorder predecessor.
         if (parent.right.right == null) {
@@ -71,6 +95,12 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
         return find(root, item);
     }
 
+    /**
+     * Recursive find method.
+     * @param localRoot The local subtree's root
+     * @param item The object being sought
+     * @return The object, if found, otherwise null
+     */
     private E find(Node<E> localRoot, E item) {
         if(localRoot == null) {
             return null;
@@ -109,6 +139,14 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
         return addReturn;
     }
 
+    /**
+     * Recursive add method.
+     * post: The data field addReturn is set true if the item is added to the tree,
+     * false if the item is already in the tree.
+     * @param localRoot The local root of the subtree
+     * @param item The object to be inserted
+     * @return The new local root that now contains the inserted item
+     */
     private Node<E> add(Node<E> localRoot, E item) {
         if (localRoot == null) {
             // item is not in the tree — insert it.

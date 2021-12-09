@@ -1,10 +1,21 @@
 package edu.miracosta.cs113;
 
+/**
+ * AVLTree.java : Extends BinarySearchTreeWithRotate to implement a self-balancing property to binary search tree
+ *
+ * @author Aaron McCully
+ * @version 1.0
+ *
+ * @param <E> The type of data stored in the tree nodes
+ */
 public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate<E> {
-
+    // data fields
     private boolean increase;
+
     /**
      * Class to represent an AVL Node. It extends the BinaryTree.Node by adding the balance field.
+     *
+     * @param <E> The type of data stored in the nodes
      */
     private static class AVLNode<E> extends Node<E> {
         // Constant to indicate left‐heavy
@@ -128,6 +139,13 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
         return (AVLNode<E>) rotateRight(localRoot);
     }
 
+    /**
+     * Method to rebalance right.
+     * @pre localRoot is the root of an AVL subtree that is critically right‐heavy.
+     * @post Balance is restored.
+     * @param localRoot Root of the AVL subtree that needs rebalancing
+     * @return a new localRoot
+     */
     private AVLNode<E> rebalanceRight(AVLNode<E> localRoot) {
         AVLNode<E> rightChild = (AVLNode<E>) localRoot.right;
         // See whether right‐left heavy.
@@ -166,6 +184,11 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
         return (AVLNode<E>) rotateLeft(localRoot);
     }
 
+    /**
+     * Method to decrease the balance of a node by 1
+     *
+     * @param node The node to change the balance of
+     */
     private void decrementBalance(AVLNode<E> node) {
         // Decrement the balance.
         node.balance--;
@@ -175,6 +198,11 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
         }
     }
 
+    /**
+     * Method to increase the balance of a node by 1
+     *
+     * @param node The node to change the balance of
+     */
     private void incrementBalance(AVLNode<E> node) {
         // Increment the balance.
         node.balance++;
